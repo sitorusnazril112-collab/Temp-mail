@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TempMail — Free Disposable Email Generator | by Azriel</title>
+
+<meta name="description" content="Generate free temporary email addresses instantly. Protect your privacy, avoid spam, and stay anonymous with TempMail — no sign-up required, runs entirely in your browser.">
+<meta name="keywords" content="temp mail, temporary email, disposable email, fake email, email generator, free temp mail, anonymous email, burner email, throwaway email, spam protection">
+<meta name="author" content="Nazril Sitorus">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="theme-color" content="#00d4ff">
+<meta name="color-scheme" content="dark">
+<meta name="application-name" content="TempMail">
+<meta name="generator" content="TempMail by Azriel">
+<meta name="rating" content="general">
+<meta name="revisit-after" content="7 days">
+<meta name="language" content="English">
+<meta name="category" content="tools, privacy, email">
+<meta name="classification" content="Internet Tools">
+<meta name="coverage" content="Worldwide">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="TempMail — Free Disposable Email Generator">
+<meta property="og:description" content="Generate free temporary email addresses instantly. Protect your privacy, avoid spam, and stay anonymous — no sign-up, runs 100% in your browser.">
+<meta property="og:image" content="logo/favicon.png">
+<meta property="og:image:alt" content="TempMail logo">
+<meta property="og:image:width" content="32">
+<meta property="og:image:height" content="32">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="TempMail by Azriel">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TempMail — Free Disposable Email Generator">
+<meta name="twitter:description" content="Generate free temporary email addresses instantly. No sign-up, runs 100% in your browser.">
+<meta name="twitter:image" content="logo/favicon.png">
+<meta name="twitter:image:alt" content="TempMail logo">
+
+<link rel="canonical" href="https://tempmail.azriel.dev/">
+<link rel="sitemap" type="application/xml" href="sitemap.xml">
+<link rel="icon" type="image/png" sizes="32x32" href="logo/favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="logo/favicon.png">
+<link rel="apple-touch-icon" href="logo/favicon.png">
+<link rel="shortcut icon" href="logo/favicon.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "TempMail",
+  "description": "Generate free temporary email addresses instantly. Protect your privacy, avoid spam, and stay anonymous — no sign-up required.",
+  "url": "https://tempmail.azriel.dev/",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Nazril Sitorus",
+    "alternateName": "Azriel"
+  },
+  "featureList": [
+    "Instant disposable email generation",
+    "Bulk email generation up to 200",
+    "Password generator",
+    "100% client-side, no server",
+    "No sign-up required"
+  ]
+}
+</script>
+  
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --card: #1a2235;
+    --border: #1e2d45;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --green: #00ff88;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --danger: #ff4757;
+    --warning: #f59e0b;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 28px 16px 60px;
+  }
+
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);
+    background-size:40px 40px;
+    pointer-events:none; z-index:0;
+  }
+
+  .wrapper { position:relative; z-index:1; max-width:720px; margin:0 auto; }
+
+  /* Header */
+  .header { text-align:center; margin-bottom:36px; }
+  .logo-row { display:inline-flex; align-items:center; gap:12px; margin-bottom:6px; }
+  .logo-icon-box {
+    width:42px; height:42px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    box-shadow:0 0 18px rgba(0,212,255,0.25);
+  }
+  .logo-text {
+    font-size:30px; font-weight:700; letter-spacing:-1px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .subtitle { color:var(--muted); font-size:13px; margin-bottom:4px; }
+  .byline { font-size:11px; color:var(--accent2); font-weight:600; letter-spacing:2px; text-transform:uppercase; }
+
+  /* Card */
+  .card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 24px;
+    margin-bottom:18px;
+  }
+
+  .section-label {
+    font-size:11px; font-weight:600; color:var(--muted);
+    text-transform:uppercase; letter-spacing:1px;
+    margin-bottom:12px;
+    display:flex; align-items:center; gap:7px;
+  }
+
+  .email-display {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; padding:14px 16px;
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:12px;
+  }
+  .email-text {
+    font-family:'JetBrains Mono',monospace;
+    font-size:15px; font-weight:600; color:var(--accent);
+    word-break:break-all; flex:1;
+  }
+  .dot {
+    width:8px; height:8px; border-radius:50%;
+    background:var(--green); flex-shrink:0;
+    box-shadow:0 0 8px var(--green);
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  .pass-display {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; padding:14px 16px;
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:12px;
+  }
+  .pass-text {
+    font-family:'JetBrains Mono',monospace;
+    font-size:15px; font-weight:600; color:var(--accent2);
+    word-break:break-all; flex:1;
+  }
+
+  .domain-select {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:8px; color:var(--text);
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px; padding:7px 10px;
+    cursor:pointer; outline:none;
+    margin-bottom:14px; width:100%;
+  }
+  .domain-select:focus { border-color:var(--accent); }
+
+  /* Buttons */
+  .btn-row { display:flex; gap:9px; flex-wrap:wrap; }
+  .btn {
+    padding:10px 15px; border-radius:8px; border:none;
+    cursor:pointer; font-family:'Space Grotesk',sans-serif;
+    font-size:13px; font-weight:600; transition:all .15s;
+    display:flex; align-items:center; gap:7px; white-space:nowrap;
+  }
+  .btn-primary { background:linear-gradient(135deg,var(--accent),#0099cc); color:#000; flex:1; }
+  .btn-primary:hover { opacity:.85; transform:translateY(-1px); }
+  .btn-secondary { background:var(--surface); color:var(--text); border:1px solid var(--border); }
+  .btn-secondary:hover { border-color:var(--accent); color:var(--accent); }
+  .btn-danger { background:transparent; color:var(--danger); border:1px solid var(--danger); }
+  .btn-danger:hover { background:var(--danger); color:#fff; }
+  .btn.flash { background:var(--green) !important; color:#000 !important; border-color:var(--green) !important; }
+  .btn-both {
+    background:linear-gradient(135deg,var(--accent2),#0099cc);
+    color:#fff; width:100%; justify-content:center; margin-top:9px;
+  }
+  .btn-both:hover { opacity:.85; transform:translateY(-1px); }
+
+  /* Bulk */
+  .bulk-header {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:14px; flex-wrap:wrap; gap:10px;
+  }
+  .bulk-title { font-size:14px; font-weight:600; display:flex; align-items:center; gap:8px; }
+  .count-control { display:flex; align-items:center; gap:7px; }
+  .count-btn {
+    width:28px; height:28px; border-radius:6px;
+    background:var(--surface); border:1px solid var(--border);
+    color:var(--text); font-size:14px; font-weight:700;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:all .15s;
+  }
+  .count-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .count-val { font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:600; min-width:32px; text-align:center; }
+
+  /* List */
+  .email-list {
+    display:flex; flex-direction:column; gap:7px;
+    max-height:320px; overflow-y:auto;
+    scrollbar-width:thin; scrollbar-color:var(--border) transparent;
+  }
+  .email-list::-webkit-scrollbar { width:4px; }
+  .email-list::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+
+  .email-item {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:8px; padding:10px 13px;
+    display:flex; align-items:center; gap:10px;
+    transition:border-color .15s, opacity .28s, transform .28s;
+  }
+  .email-item:hover { border-color:var(--accent); }
+  .email-item.removing { opacity:0; transform:translateX(24px); }
+
+  .item-email { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text); flex:1; }
+  .item-pass { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); display:flex; align-items:center; gap:4px; margin-top:2px; }
+
+  .copy-mini {
+    background:none; border:1px solid transparent;
+    color:var(--muted); cursor:pointer;
+    padding:5px 7px; border-radius:6px;
+    transition:all .15s; flex-shrink:0; display:flex; align-items:center;
+  }
+  .copy-mini:hover { color:var(--accent); border-color:var(--accent); background:rgba(0,212,255,.07); }
+  .copy-mini.ok { color:var(--green); border-color:var(--green); }
+
+  .empty-state {
+    text-align:center; padding:36px; color:var(--muted);
+    font-size:13px; display:flex; flex-direction:column; align-items:center; gap:10px;
+  }
+
+  .bulk-actions { display:flex; gap:9px; margin-top:13px; flex-wrap:wrap; }
+
+  .storage-bar {
+    background:rgba(0,212,255,.05); border:1px solid rgba(0,212,255,.12);
+    border-radius:8px; padding:7px 13px; margin-bottom:12px;
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:var(--muted);
+  }
+  .storage-bar strong { color:var(--accent); font-family:'JetBrains Mono',monospace; }
+
+  /* Guide Card */
+  .notes-card { border:1px solid rgba(245,158,11,0.25); border-radius:16px; overflow:hidden; margin-bottom:18px; }
+  .notes-header {
+    background:rgba(245,158,11,0.08); border-bottom:1px solid rgba(245,158,11,0.18);
+    padding:12px 20px; font-size:12px; font-weight:700; color:var(--warning);
+    text-transform:uppercase; letter-spacing:1px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .notes-body { background:rgba(245,158,11,0.03); padding:18px 20px; display:flex; flex-direction:column; gap:12px; }
+  .note-item { display:flex; align-items:flex-start; gap:12px; }
+  .note-dot { width:6px; height:6px; border-radius:50%; background:var(--warning); flex-shrink:0; margin-top:6px; opacity:0.7; }
+  .note-item p { font-size:13px; color:var(--muted); line-height:1.6; }
+  .note-item p strong { color:var(--text); font-weight:600; }
+  .note-divider { border:none; border-top:1px solid rgba(245,158,11,0.15); margin:2px 0; }
+  .note-footer-text { font-size:12px; color:rgba(245,158,11,0.6); text-align:center; font-style:italic; }
+
+  .guide-card { border-color:rgba(0,212,255,0.2); }
+  .guide-header { background:rgba(0,212,255,0.07); border-bottom-color:rgba(0,212,255,0.15); color:var(--accent); }
+  .guide-card .notes-body { background:rgba(0,212,255,0.02); gap:16px; }
+
+  .guide-step { display:flex; align-items:flex-start; gap:14px; }
+  .step-num {
+    width:26px; height:26px; border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),#0099cc);
+    color:#000; font-size:12px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; margin-top:1px;
+  }
+  .step-title { font-size:13px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .step-desc { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:10px; }
+  .step-desc strong { color:var(--text); font-weight:600; }
+
+  .tempmail-link {
+    display:inline-flex; align-items:center; gap:7px;
+    padding:9px 16px; border-radius:8px;
+    background:linear-gradient(135deg,var(--accent),#0099cc);
+    color:#000; font-size:13px; font-weight:700;
+    text-decoration:none; transition:all .15s; margin-top:2px;
+  }
+  .tempmail-link:hover { opacity:.85; transform:translateY(-1px); }
+
+  /* Footer */
+  .footer { text-align:center; margin-top:32px; padding-bottom:16px; }
+  .footer-badges {
+    display:flex; align-items:center; justify-content:center;
+    flex-wrap:wrap; gap:8px; margin-bottom:16px;
+  }
+  .badge-item {
+    display:inline-flex; align-items:center; gap:5px;
+    padding:5px 12px; border-radius:20px;
+    background:var(--card); border:1px solid var(--border);
+    font-size:11px; font-weight:600; color:var(--muted);
+    letter-spacing:0.3px; transition:all .15s;
+  }
+  .badge-item:hover { border-color:var(--accent); color:var(--accent); }
+  .footer-divider { width:48px; height:1px; background:var(--border); margin:0 auto 14px; }
+  .footer-main { font-size:13px; color:var(--muted); margin-bottom:6px; }
+  .footer-main span { color:var(--accent2); font-weight:600; }
+  .footer-sub { font-size:11px; color:#334155; }
+
+  /* Toast */
+  .toast {
+    position:fixed; bottom:24px; left:50%;
+    transform:translateX(-50%) translateY(80px);
+    background:var(--green); color:#000;
+    font-weight:700; font-size:13px;
+    padding:10px 20px; border-radius:20px;
+    z-index:999; transition:transform .3s; pointer-events:none;
+    display:flex; align-items:center; gap:8px;
+  }
+  .toast.show { transform:translateX(-50%) translateY(0); }
+
+  @media(max-width:480px){
+    .email-text,.pass-text { font-size:13px; }
+    .btn { font-size:12px; padding:9px 12px; }
+    .bulk-actions { flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </symbol>
+  <symbol id="ic-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+    <path d="M21 3v5h-5"/>
+    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+    <path d="M8 16H3v5"/>
+  </symbol>
+  <symbol id="ic-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="14" height="14" x="8" y="8" rx="2"/>
+    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+  </symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 6 9 17l-5-5"/>
+  </symbol>
+  <symbol id="ic-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="7.5" cy="15.5" r="5.5"/>
+    <path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/>
+  </symbol>
+  <symbol id="ic-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+  </symbol>
+  <symbol id="ic-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>
+  </symbol>
+  <symbol id="ic-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/>
+    <path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/>
+    <path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/>
+  </symbol>
+  <symbol id="ic-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
+    <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
+  </symbol>
+  <symbol id="ic-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+    <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+  </symbol>
+  <symbol id="ic-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+  </symbol>
+  <symbol id="ic-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </symbol>
+  <symbol id="ic-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+  </symbol>
+  <symbol id="ic-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+  </symbol>
+</svg>
+
+<div class="wrapper">
+
+  <div class="header">
+    <div class="logo-row">
+      <div class="logo-icon-box">
+        <svg width="22" height="22" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <use href="#ic-mail"/>
+        </svg>
+      </div>
+      <div class="logo-text">TempMail</div>
+    </div>
+    <div class="subtitle">Disposable email generator &middot; Automatic &amp; free</div>
+    <div class="byline">by Azriel</div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">
+      <svg width="13" height="13" stroke="var(--muted)" fill="none" stroke-width="2"><use href="#ic-mail"/></svg>
+      Active email
+    </div>
+    <div class="email-display">
+      <span class="email-text" id="currentEmail">—</span>
+      <div class="dot"></div>
+    </div>
+    <select class="domain-select" id="domainSelect">
+      <option value="@gmail.com">@gmail.com</option>
+      <option value="@yahoo.com">@yahoo.com</option>
+      <option value="@outlook.com">@outlook.com</option>
+      <option value="@hotmail.com">@hotmail.com</option>
+      <option value="@protonmail.com">@protonmail.com</option>
+      <option value="@icloud.com">@icloud.com</option>
+      <option value="@mail.com">@mail.com</option>
+      <option value="@tutanota.com">@tutanota.com</option>
+    </select>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="newEmail()">
+        <svg width="15" height="15" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-refresh"/></svg>
+        New Email
+      </button>
+      <button class="btn btn-secondary" id="btnCopyEmail" onclick="copyEmail()">
+        <svg width="15" height="15" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-copy"/></svg>
+        Copy Email
+      </button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">
+      <svg width="13" height="13" stroke="var(--muted)" fill="none" stroke-width="2"><use href="#ic-key"/></svg>
+      Password
+    </div>
+    <div class="pass-display">
+      <span class="pass-text" id="currentPass">—</span>
+    </div>
+    <div class="btn-row" style="margin-bottom:9px;">
+      <button class="btn btn-primary" onclick="newPass()">
+        <svg width="15" height="15" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-refresh"/></svg>
+        New Password
+      </button>
+      <button class="btn btn-secondary" id="btnCopyPass" onclick="copyPass()">
+        <svg width="15" height="15" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-key"/></svg>
+        Copy Password
+      </button>
+    </div>
+    <button class="btn btn-both" id="btnCopyBoth" onclick="copyBoth()">
+      <svg width="15" height="15" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-layers"/></svg>
+      Copy Email + Password at Once
+    </button>
+  </div>
+
+  <!-- Bulk Generate -->
+  <div class="card">
+    <div class="bulk-header">
+      <div class="bulk-title">
+        <svg width="15" height="15" stroke="var(--accent)" fill="none" stroke-width="2"><use href="#ic-zap"/></svg>
+        Bulk Generate
+      </div>
+      <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;">
+        <div class="count-control">
+          <button class="count-btn" onclick="changeCount(-5)">−5</button>
+          <button class="count-btn" onclick="changeCount(-1)">−</button>
+          <span class="count-val" id="countVal">10</span>
+          <button class="count-btn" onclick="changeCount(1)">+</button>
+          <button class="count-btn" onclick="changeCount(10)">+10</button>
+        </div>
+        <button class="btn btn-primary" style="padding:8px 16px;flex:unset;" onclick="generateBulk()">
+          <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-zap"/></svg>
+          Generate
+        </button>
+      </div>
+    </div>
+
+    <div class="storage-bar" id="storageBar" style="display:none;">
+      <svg width="13" height="13" stroke="var(--accent)" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>
+      </svg>
+      Saved in browser: <strong id="storageCount">0</strong> emails
+    </div>
+
+    <div class="email-list" id="emailList">
+      <div class="empty-state">
+        <svg width="32" height="32" stroke="var(--border)" fill="none" stroke-width="1.5"><use href="#ic-inbox"/></svg>
+        Click Generate to create bulk emails
+      </div>
+    </div>
+
+    <div class="bulk-actions" id="bulkActions" style="display:none;">
+      <button class="btn btn-secondary" onclick="copyAll()">
+        <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-copy"/></svg>
+        Copy All
+      </button>
+      <button class="btn btn-secondary" onclick="copyEmailsOnly()">
+        <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-mail"/></svg>
+        Email Only
+      </button>
+      <button class="btn btn-danger" onclick="clearList()">
+        <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-trash"/></svg>
+        Clear All
+      </button>
+    </div>
+  </div>
+
+  <!-- How to Use -->
+  <div class="notes-card guide-card">
+    <div class="notes-header guide-header">
+      <svg width="14" height="14" stroke="var(--accent)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+      </svg>
+      How to Use
+    </div>
+    <div class="notes-body">
+      <div class="guide-step">
+        <div class="step-num">1</div>
+        <div>
+          <p class="step-title">Generate email + password</p>
+          <p class="step-desc">Click <strong>New Email</strong> and <strong>New Password</strong>, then copy both at once using the blue button below.</p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="step-num">2</div>
+        <div>
+          <p class="step-title">Sign up on any website</p>
+          <p class="step-desc">Paste the email + password into the registration form. If the website <strong>doesn't require verification</strong>, you can log in right away.</p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="step-num">3</div>
+        <div>
+          <p class="step-title">Need email verification?</p>
+          <p class="step-desc">Use a temporary inbox from <strong>Temp-Mail</strong> — free, no sign-up needed, instant real inbox.</p>
+          <a class="tempmail-link" href="https://temp-mail.org" target="_blank" rel="noopener">
+            <svg width="13" height="13" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-link"/></svg>
+            Open Temp-Mail.org
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-card">
+    <div class="notes-header">
+      <svg width="14" height="14" stroke="var(--warning)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      Usage Notice
+    </div>
+    <div class="notes-body">
+      <div class="note-item">
+        <div class="note-dot"></div>
+        <p>This tool is made for <strong>legitimate personal use</strong> — such as signing up for services without cluttering your main inbox.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-dot"></div>
+        <p><strong>Strictly prohibited</strong> to use this tool for spam, phishing, fraud, or any form of cybercrime.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-dot"></div>
+        <p>Do not use for <strong>DDoS</strong> attacks, creating bot accounts in bulk, or abusing other people's systems.</p>
+      </div>
+      <div class="note-item">
+        <div class="note-dot"></div>
+        <p>Generated emails are <strong>random format only</strong> — not connected to a real inbox. Need a real inbox? Use Temp-Mail above.</p>
+      </div>
+      <div class="note-divider"></div>
+      <p class="note-footer-text">Use responsibly. Any misuse is entirely the user's own responsibility.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-badges">
+      <div class="badge-item">
+        <svg width="11" height="11" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-code"/></svg>
+        Version 1.0
+      </div>
+      <div class="badge-item">
+        <svg width="11" height="11" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-lock"/></svg>
+        Open Source
+      </div>
+      <div class="badge-item">
+        <svg width="11" height="11" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-shield"/></svg>
+        100% Local
+      </div>
+      <div class="badge-item">
+        <svg width="11" height="11" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-globe"/></svg>
+        No Server
+      </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-main">Made with purpose &mdash; <span>by Azriel</span></div>
+    <div class="footer-sub">No data is sent to any server. Everything runs in your browser.</div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">
+  <svg width="14" height="14" stroke="#000" fill="none" stroke-width="2.5"><use href="#ic-check"/></svg>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+  const ADJ  = ['quick','smart','silent','bright','swift','cool','dark','lucky','brave','wild','super','lazy','happy','sharp','clean','fast','bold','calm','free','hot'];
+  const NOUN = ['fox','star','wolf','eagle','storm','light','blade','shadow','tiger','ocean','sky','moon','byte','pixel','node','core','flux','beam','arc','sync'];
+  const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+  const LS_KEY = 'tempmail_azriel';
+
+  let bulkCount = 10;
+  let bulkList  = [];
+  let curEmail  = '';
+  let curPass   = '';
+
+  const rand    = arr => arr[Math.floor(Math.random() * arr.length)];
+  const randNum = n   => Math.floor(Math.random() * n);
+
+  function makeEmail(domain) {
+    const d = domain || document.getElementById('domainSelect').value;
+    const styles = [
+      () => `${rand(ADJ)}.${rand(NOUN)}${randNum(9999)}`,
+      () => `${rand(NOUN)}${randNum(99)}_${rand(ADJ)}`,
+      () => `user${randNum(999999)}`,
+      () => `${rand(ADJ)}${rand(NOUN)}${randNum(999)}`,
+      () => `tmp${Date.now().toString(36)}`,
+    ];
+    return rand(styles)() + d;
+  }
+
+  function makePass() {
+    let p = '';
+    for (let i = 0; i < 14; i++) p += CHARS[Math.floor(Math.random() * CHARS.length)];
+    return p;
+  }
+
+  function newEmail() {
+    curEmail = makeEmail();
+    document.getElementById('currentEmail').textContent = curEmail;
+  }
+
+  function newPass() {
+    curPass = makePass();
+    document.getElementById('currentPass').textContent = curPass;
+  }
+
+  function copyEmail() {
+    if (!curEmail || curEmail === '—') return;
+    navigator.clipboard.writeText(curEmail).then(() => { showToast('Email copied'); flash('btnCopyEmail'); });
+  }
+
+  function copyPass() {
+    if (!curPass || curPass === '—') return;
+    navigator.clipboard.writeText(curPass).then(() => { showToast('Password copied'); flash('btnCopyPass'); });
+  }
+
+  function copyBoth() {
+    if (!curEmail || curEmail === '—') return;
+    navigator.clipboard.writeText(`Email: ${curEmail}\nPassword: ${curPass}`).then(() => {
+      showToast('Email + Password copied at once'); flash('btnCopyBoth');
+    });
+  }
+
+  function flash(id) {
+    const b = document.getElementById(id);
+    if (!b) return;
+    b.classList.add('flash');
+    setTimeout(() => b.classList.remove('flash'), 1600);
+  }
+
+  function changeCount(d) {
+    bulkCount = Math.max(1, Math.min(200, bulkCount + d));
+    document.getElementById('countVal').textContent = bulkCount;
+  }
+
+  function generateBulk() {
+    const domain = document.getElementById('domainSelect').value;
+    const fresh = Array.from({length: bulkCount}, (_, i) => ({
+      id: Date.now() + i, email: makeEmail(domain), pass: makePass()
+    }));
+    bulkList = [...fresh, ...bulkList];
+    save(); render();
+    document.getElementById('bulkActions').style.display = 'flex';
+    showToast(`${bulkCount} emails generated`);
+  }
+
+  function save() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(bulkList)); } catch(e) {}
+    updateBar();
+  }
+
+  function load() {
+    try {
+      const r = localStorage.getItem(LS_KEY);
+      if (r) {
+        bulkList = JSON.parse(r);
+        if (bulkList.length) { render(); document.getElementById('bulkActions').style.display = 'flex'; }
+      }
+    } catch(e) { bulkList = []; }
+    updateBar();
+  }
+
+  function updateBar() {
+    document.getElementById('storageCount').textContent = bulkList.length;
+    document.getElementById('storageBar').style.display = bulkList.length ? 'flex' : 'none';
+  }
+
+  function render() {
+    const el = document.getElementById('emailList');
+    if (!bulkList.length) {
+      el.innerHTML = `<div class="empty-state">
+        <svg width="32" height="32" stroke="var(--border)" fill="none" stroke-width="1.5"><use href="#ic-inbox"/></svg>
+        Click Generate to create bulk emails
+      </div>`;
+      return;
+    }
+    el.innerHTML = bulkList.map(item => `
+      <div class="email-item" id="row-${item.id}">
+        <div style="flex:1;min-width:0;">
+          <div class="item-email">${item.email}</div>
+          <div class="item-pass">
+            <svg width="10" height="10" stroke="var(--muted)" fill="none" stroke-width="2"><use href="#ic-key"/></svg>
+            ${item.pass}
+          </div>
+        </div>
+        <button class="copy-mini" onclick="copyItem('${item.id}',this)" title="Copy then remove">
+          <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><use href="#ic-copy"/></svg>
+        </button>
+      </div>
+    `).join('');
+  }
+
+  function copyItem(id, btn) {
+    const item = bulkList.find(x => String(x.id) === String(id));
+    if (!item) return;
+    navigator.clipboard.writeText(`Email: ${item.email}\nPassword: ${item.pass}`).then(() => {
+      btn.innerHTML = `<svg width="14" height="14" stroke="var(--green)" fill="none" stroke-width="2.5"><use href="#ic-check"/></svg>`;
+      btn.classList.add('ok');
+      showToast('Copied — removed from list');
+      const row = document.getElementById('row-' + id);
+      if (row) row.classList.add('removing');
+      setTimeout(() => {
+        bulkList = bulkList.filter(x => String(x.id) !== String(id));
+        save(); render();
+        if (!bulkList.length) document.getElementById('bulkActions').style.display = 'none';
+      }, 300);
+    });
+  }
+
+  function copyAll() {
+    if (!bulkList.length) return;
+    navigator.clipboard.writeText(bulkList.map((x,i) => `${i+1}. ${x.email} | ${x.pass}`).join('\n')).then(() => {
+      showToast(`${bulkList.length} emails + passwords copied`); wipeList();
+    });
+  }
+
+  function copyEmailsOnly() {
+    if (!bulkList.length) return;
+    navigator.clipboard.writeText(bulkList.map(x => x.email).join('\n')).then(() => {
+      showToast(`${bulkList.length} emails copied`); wipeList();
+    });
+  }
+
+  function clearList() { wipeList(); showToast('List cleared'); }
+
+  function wipeList() {
+    bulkList = []; save(); render();
+    document.getElementById('bulkActions').style.display = 'none';
+  }
+
+  function showToast(msg) {
+    document.getElementById('toastMsg').textContent = msg;
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    clearTimeout(t._t);
+    t._t = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  newEmail();
+  newPass();
+  load();
+</script>
+</body>
+</html>
